@@ -19,7 +19,11 @@ In orde to make everything working, you'll have to follow some steps
 
 ### Prerequisites
 
-All you need is docker. Download docker from their [site](https://www.docker.com/get-started).
+- Download docker from their [site](https://www.docker.com/get-started).
+
+- Install [Node.js](https://nodejs.org/en/download/) (v8+) 
+
+- Install [yarn](https://yarnpkg.com/fr/docs/install)
 
 Then, launch the following command in the root directory
 
@@ -28,9 +32,15 @@ First, clone the repository in recursive mode
 git clone git@github.com:esport-hatcher/stack.git --recursive
 ```
 
+Go into client and server folder and run ```yarn``` in both of them.
+
+Then, in the root repository launch
+
 ```
 docker-compose up --build
 ```
+
+If you got some error concerning packages who are not present, you can try to run ```yarn``` again in client and server folders.
 
 ### Installing
 
