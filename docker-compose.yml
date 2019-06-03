@@ -45,3 +45,4 @@ services:
       - '3000:3000'
     volumes:
       - ./client:/app:delegated
+      - /app/node_modules/node-sass/
