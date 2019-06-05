@@ -19,7 +19,11 @@ In orde to make everything working, you'll have to follow some steps
 
 ### Prerequisites
 
-All you need is docker. Download docker from their [site](https://www.docker.com/get-started).
+- Download docker from their [site](https://www.docker.com/get-started).
+
+- Install [Node.js](https://nodejs.org/en/download/) (v8+) 
+
+- Install [yarn](https://yarnpkg.com/fr/docs/install)
 
 Then, launch the following command in the root directory
 
@@ -28,9 +32,15 @@ First, clone the repository in recursive mode
 git clone git@github.com:esport-hatcher/stack.git --recursive
 ```
 
+Go into client and server folder and run ```yarn``` in both of them.
+
+Then, in the root repository launch
+
 ```
 docker-compose up --build
 ```
+
+If you got some error concerning packages who are not present, you can try to run ```yarn``` again in client and server folders.
 
 ### Installing
 
@@ -44,6 +54,8 @@ You can also access it by typing [localhost:8081/api](http://localhost:8081/api/
 
 The database is a MySQL 5.7 automatically created for you with docker
 
+
+The database is available in localhost:33061 (127.0.0.1)
 
 You can acess the database with the following credentials:
 
@@ -100,11 +112,10 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Amaury BREUIL** - *Project's leader / Administration* - [Amaurix](https://github.com/Amaurix)
 * **Lothaire NOAH** - *Backend Developer* - [SeniorMuchacho](https://github.com/SeniorMuchacho)
 * **Arthur GAMBLIN** - *Fullstack Developer* - [agamblin](https://github.com/agamblin)
-* **Yunhan XIA** - *Front Developer* - [yuhnanxia](https://github.com/yunhanxia)
-* **Ludwig AMEDEE** - *Front Developer* - [Ludamee](https://github.com/Ludamee)
-* **Ludovic Porokhov** - *Fullstack Developer* - [HommeSombre](https://github.com/HommeSombre)
-* **Antoine RENAUD** - *Backend Developer* - [Niavart](https://github.com/Niavart)
-* **Ramzi MELLITI** - *Fullstack Developer* - [Melliti](https://github.com/Melliti)
+* **Yunhan XIA** - *Backend Developer* - [yuhnanxia](https://github.com/yunhanxia)
+* **Ludwig AMEDEE** - *Frontend Developer* - [Ludamee](https://github.com/Ludamee)
+* **Ludovic Porokhov** - *Backend Developer* - [HommeSombre](https://github.com/HommeSombre)
+* **Ramzi MELLITI** - *Frontend Developer* - [Melliti](https://github.com/Melliti)
 
 See also the list of [contributors](https://github.com/esport-hatcher/stack-esport-hatcher/contributors) who participated in this project.
 
