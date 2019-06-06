@@ -29,7 +29,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - NODE_ENV=dev
+      - NODE_ENV=DEV
       - SQL_HOST=mysql
       - SQL_USER=root
       - SQL_PASSWORD=9uOxHyH9
@@ -37,6 +37,7 @@ services:
       - SQL_PORT=3306
       - JWT_SECRET=9uOxHyH9
       - PORT_API=8080
+      - SEQUELIZE_LOGS=false 
   client_web:
     build:
       context: ./client
