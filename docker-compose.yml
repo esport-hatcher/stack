@@ -38,6 +38,7 @@ services:
       - JWT_SECRET=9uOxHyH9
       - PORT_API=8080
       - SEQUELIZE_LOGS=false 
+      - BO_ADMIN_PWD=admin
   client_web:
     build:
       context: ./client
