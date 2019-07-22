@@ -9,8 +9,9 @@ git:
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 
 before_install:
-  - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
+  # - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
+  - git submodule foreach --recursive git checkout develop
   - docker build -t agamblin/eh-client-test -f ./client/Dockerfile.dev ./client
   - docker build -t agamblin/eh-server-test -f ./server/Dockerfile.dev ./server
 
@@ -18,8 +19,8 @@ script:
   - docker run agamblin/eh-client-test yarn launch-tests-ci --coverage
   - docker run -e SQL_HOST=$SQLHOST -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD=$SQLPWD -e SQL_DB=eh_test -e JWT_SECRET=somejwtrandom -e NODE_ENV=CI agamblin/eh-server-test yarn launch-tests --coverage
 after_success:
-  - test $TRAVIS_BRANCH = "master" && git submodule foreach --recursive git checkout master
-  - test $TRAVIS_BRANCH = "develop" && git submodule foreach --recursive git checkout develop
+  # - test $TRAVIS_BRANCH = "master" && git submodule foreach --recursive git checkout master
+  # - test $TRAVIS_BRANCH = "develop" && git submodule foreach --recursive git checkout develop
   - docker build -t agamblin/eh-client ./client
   - docker build -t agamblin/eh-server ./server
   - docker build -t agamblin/eh-nginx ./nginx
