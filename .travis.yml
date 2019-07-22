@@ -31,7 +31,7 @@ deploy:
   - provider: elasticbeanstalk
     region: 'eu-west-3'
     app: 'esport-hatcher-staging'
-    env: 'EsportHatcherStaging'
+    env: 'EsportHatcherStaging-env'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-staging'
     on:
@@ -42,7 +42,7 @@ deploy:
   - provider: elasticbeanstalk
     region: 'eu-west-3'
     app: 'esport-hatcher-production'
-    env: 'EsportHatcherProduction'
+    env: 'EsportHatcherProduction-env'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-production'
     on:
