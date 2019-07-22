@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 9uOxHyH9
     entrypoint: sh -c "
-      echo 'CREATE DATABASE IF NOT EXISTS eh; CREATE DATABASE IF NOT EXISTS eh_test;' > /docker-entrypoint-initdb.d/init.sql;
+      echo 'CREATE DATABASE IF NOT EXISTS eh; CREATE DATABASE IF NOT EXISTS eh_testing;' > /docker-entrypoint-initdb.d/init.sql;
       /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
   nginx:
     restart: always
