@@ -6,7 +6,7 @@ client:
     PORT_API: '8080'
     SEQUELIZE_LOGS: 'true'
     SQL_DB: eh
-    SQL_HOST: eh-staging.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
+    SQL_HOST: eh.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
     SQL_PASSWORD: 9uOxHyH9
     SQL_PORT: '3306'
     SQL_USER: root
@@ -19,7 +19,7 @@ nginx:
     PORT_API: '8080'
     SEQUELIZE_LOGS: 'true'
     SQL_DB: eh
-    SQL_HOST: eh-staging.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
+    SQL_HOST: eh.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
     SQL_PASSWORD: 9uOxHyH9
     SQL_PORT: '3306'
     SQL_USER: root
@@ -37,7 +37,7 @@ server:
     PORT_API: '8080'
     SEQUELIZE_LOGS: 'true'
     SQL_DB: eh
-    SQL_HOST: eh-staging.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
+    SQL_HOST: eh.ccj5pqspes6l.eu-west-3.rds.amazonaws.com
     SQL_PASSWORD: 9uOxHyH9
     SQL_PORT: '3306'
     SQL_USER: root
