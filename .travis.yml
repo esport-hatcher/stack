@@ -21,7 +21,7 @@ after_success:
   - test $TRAVIS_BRANCH = "master" && git submodule foreach --recursive git checkout master
   - test $TRAVIS_BRANCH = "develop" && git submodule foreach --recursive git checkout develop
   - docker build -t agamblin/eh-client ./client
-  - docker build -t agamblin/eh-server./server
+  - docker build -t agamblin/eh-server ./server
   - docker build -t agamblin/eh-nginx ./nginx
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push agamblin/eh-client
