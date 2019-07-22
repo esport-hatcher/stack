@@ -39,7 +39,7 @@ services:
       - PORT_API=8080
       - SEQUELIZE_LOGS=false 
       - BO_ADMIN_PWD=admin
-  client_web:
+  client:
     build:
       context: ./client
       dockerfile: Dockerfile.dev
