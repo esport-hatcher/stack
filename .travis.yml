@@ -11,7 +11,7 @@ git:
 before_install:
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
-  - git submodule foreach --recursive git checkout develop
+  - git submodule foreach --recursive git checkout $BRANCH
   - docker build -t agamblin/eh-client-test -f ./client/Dockerfile.dev ./client
   - docker build -t agamblin/eh-server-test -f ./server/Dockerfile.dev ./server
 
@@ -40,8 +40,8 @@ deploy:
       secure: $AWS_SECRET_KEY
   - provider: elasticbeanstalk
     region: 'eu-west-3'
-    app: 'esport-hatcher-production'
-    env: 'EsportHatcherProduction-env'
+    app: 'eh-production '
+    env: 'EhProduction-env'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-production'
     on:
