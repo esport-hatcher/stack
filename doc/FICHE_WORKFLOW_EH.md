@@ -4,39 +4,44 @@
 
 # WORKFLOW / ESPORT-HATCHER
 
-
 # Norme des commits
 
 ## Feature
+
 feat(register): added register logic for simple users on server
 
 ## Fix
+
 fix(register): fixed crash when creating a new user with server
 
 ## Refacto
+
 refacto(register): dispatched logic in both controller and factory
 
 ## Tests
+
 test(register): added tests for unique emails
 
-
-
 # Norme des branches
+
 ## Feature
-feature/auth/register 
+
+feature/auth/register
 
 ## Fix
+
 fix/auth/register
 
 ## Refacto
+
 refacto/auth/register
 
 ## Tests
+
 tests/auth/register
 
-
-
 # Workflow
+
 ## Quand créer une branche ?
 
 Lors du développement d’une nouvelle feature/fix/refacto/test (ici dans notre exemple un register), toujours créer une nouvelle branche à partir de “develop”.
@@ -45,16 +50,19 @@ Develop est sensé être et rester toujours la branche la plus à jour, sachant 
 
 ## CI
 
-Lorsque vous pusherez votre code sur votre nouvelle branche, les tests unitaires seront automatiquement lancé. Vous pouvez en avoir le détail sur (www.travis-ci.com).
+Lorsque vous pusherez votre code sur votre nouvelle branche, les tests unitaires/intégrations seront automatiquement lancé. Vous pouvez en avoir le détail sur (www.travis-ci.com).
 
- ![CI](https://i.ibb.co/6b4N3Dh/Screenshot-2019-04-05-at-10-51-42.png)
+![CI](https://i.ibb.co/6b4N3Dh/Screenshot-2019-04-05-at-10-51-42.png)
 
 Pour pouvoir lancer les tests en local, cela requiert plusieurs steps. Après avoir effectuer le docker-compose up (qui doit normalement toujours être up pour accéder au site), vous pouvez:
 
-#### 1. ```docker ps```
+#### 1. `docker ps`
+
 #### 2. Chopper l'id du container api si vous voulez lancez les tests sur l'api sinon choppez celui du client
-#### 3. ```docker exec -it {CONTAINER_ID} sh```
-#### 4. ```yarn test```
+
+#### 3. `docker exec -it {CONTAINER_ID} sh`
+
+#### 4. `yarn test`
 
 ## PR
 
@@ -80,8 +88,6 @@ Une fois tous les champs remplis, créez la pull request. Pour que votre code so
 
 Une fois votre PR mergé, faites attention de bien pull develop avant de créer une nouvelle branche.
 
-
-
 # TRELLO
 
 L'équipe Esport-Hatcher contient 3 board trello
@@ -90,7 +96,7 @@ L'équipe Esport-Hatcher contient 3 board trello
 2. Client Web
 3. Client Mobile
 
-Il est important pour une bonne organisation de respecter la logique lié à chaque board. 
+Il est important pour une bonne organisation de respecter la logique lié à chaque board.
 Lors du développement d'une nouvelle feature, cela commence d'abord avec mon binôme par une phase de découpage.
 
 ## Cards
@@ -101,15 +107,13 @@ Par exemple, il m'est demandé de développer un système d'authentification pou
 2. Register logic
 3. [...]
 
-Mais cela ne s'arrête pas là, pour chaque carte je dois mettre des spécificités. 
+Mais cela ne s'arrête pas là, pour chaque carte je dois mettre des spécificités.
 
 ![Example trello card](https://i.ibb.co/D7kCPzs/Screenshot-2019-04-05-at-11-13-52.png)
-
 
 Ici l'on peut voir que pour ma card "register logic" j'ai mis plusieurs checklist. L'une correspond aux règles à respecter pour considérer la tâche comme faite, ici il s'agit de règles de validation.
 
 La seconde correspond aux TU ou TI qui vont être réalisé en rapport avec la tâche, il faut toujours les définir avant de s'attaquer au développement. Ici il est nécessaire de vérifier que chaque email est unique dans la database et que je chaque ajout est bien enregistrer en base.
-
 
 ## Lists
 
