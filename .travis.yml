@@ -40,8 +40,8 @@ deploy:
       secure: $AWS_SECRET_KEY
   - provider: elasticbeanstalk
     region: 'eu-west-3'
-    app: 'esport-hatcher-production'
-    env: 'EsportHatcherProduction-env'
+    app: 'eh-production '
+    env: 'EhProduction-env'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-production'
     on:
