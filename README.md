@@ -15,7 +15,7 @@ Project developed for Epitech. It's an Esport's intranet to manage your team sma
 
 ## Getting Started
 
-In orde to make everything working, you'll have to follow some steps
+In order to make everything working, you'll have to follow some steps
 
 ### Prerequisites
 
