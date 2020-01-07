@@ -29,7 +29,7 @@ services:
     ports:
       - '8080:8080'
     environment:
-      - NODE_ENV=DEV
+      - NODE_ENV=development
       - SQL_HOST=mysql
       - SQL_USER=root
       - SQL_PASSWORD=9uOxHyH9
@@ -37,8 +37,11 @@ services:
       - SQL_PORT=3306
       - JWT_SECRET=9uOxHyH9
       - PORT_API=8080
-      - SEQUELIZE_LOGS=false 
+      - SEQUELIZE_LOGS=false
       - BO_ADMIN_PWD=admin
+      - AWS_ACCESS_KEY=AKIAX2MESKSBADCUCXU6
+      - AWS_SECRET_KEY=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
+      - AWS_BUCKET_NAME=esport-hatcher
   client:
     build:
       context: ./client
