@@ -31,8 +31,8 @@ after_success:
 deploy:
   - provider: elasticbeanstalk
     region: 'eu-west-3'
-    app: 'esport-hatcher-staging'
-    env: 'EsportHatcherStaging-env'
+    app: 'esport-hatcher'
+    env: 'EsportHatcher-staging'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-staging'
     on:
@@ -42,8 +42,8 @@ deploy:
       secure: $AWS_SECRET_KEY
   - provider: elasticbeanstalk
     region: 'eu-west-3'
-    app: 'eh-production '
-    env: 'EhProduction-env'
+    app: 'esport-hatcher'
+    env: 'EsportHatcher-production'
     bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
     bucket_path: 'eh-production'
     on:
