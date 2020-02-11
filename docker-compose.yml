@@ -40,6 +40,7 @@ services:
       - SEQUELIZE_LOGS=false
       - BO_ADMIN_PWD=admin
       - AWS_BUCKET_NAME=esport-hatcher
+      - KUBERNETES=false
   client:
     build:
       context: ./client
