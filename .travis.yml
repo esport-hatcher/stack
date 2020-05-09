@@ -20,6 +20,7 @@ before_install:
 script:
   - docker run -e CI=true agamblin/eh-client-test yarn launch-tests-ci
   - docker run --net=host -e CI=true -e SQL_HOST=127.0.0.1 -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD='' -e SQL_DB=eh_testing -e NODE_ENV=CI -e JWT_SECRET=somejwtrandom agamblin/eh-server-test yarn launch-tests
+
 after_success:
   - docker build -t agamblin/eh-client ./client
   - docker build -t agamblin/eh-server ./server
@@ -28,26 +29,16 @@ after_success:
   - docker push agamblin/eh-client
   - docker push agamblin/eh-server
   - docker push agamblin/eh-nginx
+
 deploy:
   - provider: elasticbeanstalk
     region: 'eu-west-3'
     app: 'eh'
-    env: 'eh-staging'
-    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
-    bucket_path: 'eh-staging'
-    on:
-      branch: develop
+    env: $AWS_EB_ENV
+    bucket_name: $AWS_BUCKET_NAME
+    bucket_path: $AWS_EB_ENV
     access_key_id: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
-  - provider: elasticbeanstalk
-    region: 'eu-west-3'
-    app: 'eh'
-    env: 'eh-production'
-    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
-    bucket_path: 'eh-production'
+    secret_access_key: $AWS_SECRET_KEY
     on:
-      branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
+      all_branches: true
+      condition: $TRAVIS_BRANCH =~ ^(master|development)$
