@@ -34,11 +34,20 @@ deploy:
   - provider: elasticbeanstalk
     region: 'eu-west-3'
     app: 'eh'
-    env: $AWS_EB_ENV
-    bucket_name: $AWS_BUCKET_NAME
-    bucket_path: $AWS_EB_ENV
+    env: 'eh-staging'
+    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
+    bucket_path: 'eh-staging'
     access_key_id: $AWS_ACCESS_KEY
     secret_access_key: $AWS_SECRET_KEY
     on:
-      all_branches: true
-      condition: $TRAVIS_BRANCH =~ ^(master|development)$
+      branch: develop
+  - provider: elasticbeanstalk
+    region: 'eu-west-3'
+    app: 'eh'
+    env: 'eh-production'
+    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
+    bucket_path: 'eh-production'
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    on:
+      branch: master
