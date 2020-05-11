@@ -15,6 +15,5 @@ spec:
       containers:
         - name: client
           image: agamblin/eh-client
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 3000
