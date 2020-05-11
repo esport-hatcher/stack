@@ -4,50 +4,39 @@ services:
   - docker
   - mysql
 
+env:
+  global:
+    - SHA=$(git rev-parse HEAD)
+    - CLOUDSDK_CORE_DISABLE_PROMPTS=1
+
 # Handle git submodules yourself
 git:
   submodules: false
 # Use sed to replace the SSH URL with the public URL, then initialize submodules
 
 before_install:
+  - openssl aes-256-cbc -K $encrypted_af7d608d515d_key -iv $encrypted_af7d608d515d_iv -in deployment/eh-gc-credentials.json.enc -out deployment/eh-gc-credentials.json -d
   - sed -i 's/git@github.com:/https:\/\/github.com\//' .gitmodules
   - git submodule update --init --recursive
   - git submodule foreach --recursive git checkout $BRANCH
   - docker build -t agamblin/eh-client-test -f ./client/Dockerfile.dev ./client
   - docker build -t agamblin/eh-server-test -f ./server/Dockerfile.dev ./server
   - mysql -e 'CREATE DATABASE eh_testing;'
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file deployment/eh-gc-credentials.json
+  - gcloud config set compute/zone europe-west3-a
+  - gcloud config set project esport-hatcher
+  - gcloud container clusters get-credentials esport-hatcher-1
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
 script:
-  - docker run agamblin/eh-client-test yarn launch-tests-ci --coverage
-  - docker run --net=host -e AWS_ACCESS_KEY=$S3_AWS_ACCESS_KEY -e AWS_SECRET_KEY=$S3_AWS_SECRET_KEY -e AWS_BUCKET_NAME=$S3_AWS_BUCKET_NAME -e SQL_HOST=127.0.0.1 -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD='' -e SQL_DB=eh_testing -e NODE_ENV=CI -e JWT_SECRET=somejwtrandom agamblin/eh-server-test yarn launch-tests --coverage
-after_success:
-  - docker build -t agamblin/eh-client ./client
-  - docker build -t agamblin/eh-server ./server
-  - docker build -t agamblin/eh-nginx ./nginx
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push agamblin/eh-client
-  - docker push agamblin/eh-server
-  - docker push agamblin/eh-nginx
+  - docker run -e CI=true agamblin/eh-client-test yarn launch-tests-ci
+  - docker run --net=host -e CI=true -e SQL_HOST=127.0.0.1 -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD='' -e SQL_DB=eh_testing -e NODE_ENV=CI -e JWT_SECRET=somejwtrandom agamblin/eh-server-test yarn launch-tests
+
 deploy:
-  - provider: elasticbeanstalk
-    region: 'eu-west-3'
-    app: 'esport-hatcher'
-    env: 'EsportHatcher-staging'
-    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
-    bucket_path: 'eh-staging'
-    on:
-      branch: develop
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
-  - provider: elasticbeanstalk
-    region: 'eu-west-3'
-    app: 'esport-hatcher'
-    env: 'EsportHatcher-production'
-    bucket_name: 'elasticbeanstalk-eu-west-3-537685808258'
-    bucket_path: 'eh-production'
-    on:
-      branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key:
-      secure: $AWS_SECRET_KEY
+  provider: script
+  script: bash ./deployment/deploy.sh
+  on:
+    branch: master
