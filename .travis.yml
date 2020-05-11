@@ -26,8 +26,8 @@ before_install:
   - source $HOME/google-cloud-sdk/path.bash.inc
   - gcloud components update kubectl
   - gcloud auth activate-service-account --key-file deployment/eh-gc-credentials.json
-  - gcloud config set project esport-hatcher
   - gcloud config set compute/zone europe-west3-a
+  - gcloud config set project esport-hatcher
   - gcloud container clusters get-credentials esport-hatcher-1
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
