@@ -21,7 +21,7 @@ spec:
             - name: PORT_API
               value: '5000'
             - name: NODE_ENV
-              value: development
+              value: production
             - name: SQL_HOST
               valueFrom:
                 secretKeyRef:
