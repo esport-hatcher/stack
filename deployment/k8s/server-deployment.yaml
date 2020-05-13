@@ -56,6 +56,8 @@ spec:
                 secretKeyRef:
                   name: eh-secrets
                   key: BO_ADMIN_PWD
+            - name: LOGGER
+              value: 'true'
             - name: AWS_BUCKET_NAME
               value: esport-hatcher
             - name: AWS_ACCESS_KEY
