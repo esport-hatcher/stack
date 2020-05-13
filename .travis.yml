@@ -24,7 +24,7 @@ before_install:
 
 script:
   - docker run -e CI=true agamblin/eh-client-test yarn launch-tests-ci
-  - docker run --net=host -e CI=true -e SQL_HOST=127.0.0.1 -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD='' -e SQL_DB=eh_testing -e NODE_ENV=CI -e JWT_SECRET=somejwtrandom agamblin/eh-server-test yarn launch-tests
+  - docker run --net=host -e CI=true -e LOGGER=false -e SQL_HOST=127.0.0.1 -e SQL_PORT=3306 -e SQL_USER=root -e SQL_PASSWORD='' -e SQL_DB=eh_testing -e NODE_ENV=CI -e JWT_SECRET=somejwtrandom agamblin/eh-server-test yarn launch-tests
 
 deploy:
   provider: script
