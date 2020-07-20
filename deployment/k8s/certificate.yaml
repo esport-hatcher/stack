@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1alpha2
+kind: Certificate
+metadata:
+  name: esport-hatcher-com-tls
+spec:
+  secretName: esport-hatcher-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: esport-hatcher.com
+  dnsNames:
+    - esport-hatcher.com
+    - www.esport-hatcher.com
+  acme:
+    config:
+      - http01:
+          ingressClass: nginx
+        domains:
+          - esport-hatcher.com
+          - www.esport-hatcher.com

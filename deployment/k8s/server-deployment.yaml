@@ -15,25 +15,33 @@ spec:
       containers:
         - name: server
           image: agamblin/eh-server
-          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
           env:
             - name: PORT_API
               value: '5000'
             - name: NODE_ENV
-              value: development
+              value: production
             - name: SQL_HOST
-              value: mysql-cluster-ip-service
+              valueFrom:
+                secretKeyRef:
+                  name: eh-secrets
+                  key: SQL_HOST
             - name: SQL_USER
-              value: root
+              valueFrom:
+                secretKeyRef:
+                  name: eh-secrets
+                  key: SQL_USER
             - name: SQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: eh-secrets
                   key: SQL_PASSWORD
             - name: SQL_DB
-              value: eh
+              valueFrom:
+                secretKeyRef:
+                  name: eh-secrets
+                  key: SQL_DB
             - name: SQL_PORT
               value: '3306'
             - name: JWT_SECRET
@@ -47,7 +55,9 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: eh-secrets
-                  key: BO_PASSWORD
+                  key: BO_ADMIN_PWD
+            - name: LOGGER
+              value: 'true'
             - name: AWS_BUCKET_NAME
               value: esport-hatcher
             - name: AWS_ACCESS_KEY
@@ -60,5 +70,3 @@ spec:
                 secretKeyRef:
                   name: eh-secrets
                   key: AWS_SECRET_KEY
-            - name: KUBERNETES
-              value: 'true'
