@@ -1,0 +1,51 @@
+version: '3.2'
+services:
+  mysql:
+    image: 'mysql:5.7'
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    ports:
+      - '33061:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: 9uOxHyH9
+    entrypoint: sh -c "
+      echo 'CREATE DATABASE IF NOT EXISTS eh; CREATE DATABASE IF NOT EXISTS eh_testing;' > /docker-entrypoint-initdb.d/init.sql;
+      /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci "
+  nginx:
+    restart: always
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile.dev
+    ports:
+      - '80:80'
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - mysql
+    volumes:
+      - ./server:/app:delegated
+    ports:
+      - '8080:8080'
+    environment:
+      - NODE_ENV=development
+      - SQL_HOST=mysql
+      - SQL_USER=root
+      - SQL_PASSWORD=9uOxHyH9
+      - SQL_DB=eh
+      - SQL_PORT=3306
+      - JWT_SECRET=9uOxHyH9
+      - PORT_API=8080
+      - SEQUELIZE_LOGS=false
+      - BO_ADMIN_PWD=admin
+      - AWS_BUCKET_NAME=esport-hatcher
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./client:/app:delegated
+      - /app/node_modules/node-sass/
