@@ -1,11 +1,11 @@
-version: '3.2'
+version: "3.2"
 services:
   mysql:
-    image: 'mysql:5.7'
+    image: "mysql:5.7"
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     ports:
-      - '33061:3306'
+      - "33061:3306"
     environment:
       MYSQL_ROOT_PASSWORD: 9uOxHyH9
     entrypoint: sh -c "
@@ -15,19 +15,17 @@ services:
     restart: always
     build:
       context: ./nginx
-      dockerfile: Dockerfile.dev
     ports:
-      - '80:80'
+      - "80:80"
   api:
     build:
       context: ./server
-      dockerfile: Dockerfile.dev
     depends_on:
       - mysql
     volumes:
       - ./server:/app:delegated
     ports:
-      - '8080:8080'
+      - "8080:8080"
     environment:
       - NODE_ENV=development
       - SQL_HOST=mysql
@@ -43,9 +41,8 @@ services:
   client:
     build:
       context: ./client
-      dockerfile: Dockerfile.dev
     ports:
-      - '3000:3000'
+      - "3000:3000"
     volumes:
       - ./client:/app:delegated
       - /app/node_modules/node-sass/
